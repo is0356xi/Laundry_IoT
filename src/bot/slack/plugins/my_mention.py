@@ -19,16 +19,16 @@ from slackbot.bot import default_reply  # 該当する応答がない場合に�
 # message.send('string')    string を送信
 # message.react('icon_emoji')  発言者のメッセージにリアクション(スタンプ)する
 #                               文字列中に':'はいらない
-@respond_to('メンション')
-def mention_func(message):
-    message.reply('私にメンションと言ってどうするのだ') # メンション
+# @respond_to('メンション')
+# def mention_func(message):
+#     message.reply('私にメンションと言ってどうするのだ') # メンション
 
-@listen_to('リッスン')
-def listen_func(message):
-    message.send('誰かがリッスンと投稿したようだ')      # ただの投稿
-    message.reply('君だね？')                       # メンション
+# @listen_to('リッスン')
+# def listen_func(message):
+#     message.send('誰かがリッスンと投稿したようだ')      # ただの投稿
+#     message.reply('君だね？')                       # メンション
 
-@respond_to('かっこいい')
-def cool_func(message):
-    message.reply('ありがとう。スタンプ押しとくね')     # メンション
-    message.react('+1')     # リアクション
+# @respond_to('かっこいい')
+# def cool_func(message):
+#     message.reply('ありがとう。スタンプ押しとくね')     # メンション
+#     message.react('+1')     # リアクション
