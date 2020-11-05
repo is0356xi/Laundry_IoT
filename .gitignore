@@ -3,3 +3,6 @@ test/*
 src/__pycache__/*
 .vscode/settings.json
 .DS_Store
+*.pyc
+*.pyc
+src/bot/slack/__pycache__/slackbot_settings.cpython-37.pyc

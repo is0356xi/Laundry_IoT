@@ -2,6 +2,9 @@
 
 from slackbot.bot import Bot
 
+import logging
+logging.getLogger().setLevel(logging.INFO)
+
 def main():
     bot = Bot()
     bot.run()
