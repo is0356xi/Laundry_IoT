@@ -6,3 +6,4 @@ src/__pycache__/*
 *.pyc
 *.pyc
 src/bot/slack/__pycache__/slackbot_settings.cpython-37.pyc
+src/bot/slack/slackbot_settings.py
