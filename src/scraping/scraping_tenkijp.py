@@ -7,11 +7,11 @@ class Otenki:
         #tenki.jpのページのURL(滋賀県草津市)
         url = 'https://tenki.jp/forecast/6/28/6010/25206/1hour.html'
 
-        #HTTPリクエスト
-        r = requests.get(url)
+        #HTTPリクエストを送る
+        get_data = requests.get(url)
 
         # BoutifulSoupオブジェクトの生成
-        self.bsObj = BeautifulSoup(r.content, "html.parser")
+        self.bsObj = BeautifulSoup(get_data.content, "html.parser")
 
 
     def get_chance_rain(self):
