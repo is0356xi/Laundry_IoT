@@ -2,3 +2,4 @@ test/*
 !test.md
 src/__pycache__/*
 .vscode/settings.json
+src/bot/line/heroku/
