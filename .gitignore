@@ -3,3 +3,5 @@ test/*
 src/__pycache__/*
 .vscode/settings.json
 src/bot/line/heroku/
+src/scraping/__pycache__/scraping_tenkijp.cpython-36.pyc
+src/heroku_pushed/__pycache__/scraping_server.cpython-36.pyc
