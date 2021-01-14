@@ -2,10 +2,13 @@
   <div class="about">
     <vue-ctk-date-time-picker label="日時を選択" v-model="timeData.time" formatted="MM月DD日 HH時mm分" format="YYYY-MM-DD HH:mm"></vue-ctk-date-time-picker>
 
-    <form @submit.prevent="submit">
+    <form @submit.prevent="reserve">
         <input type="text" name="" :value="timeData.time">
         <button type="submit">予約する</button>
+        <!-- <button type="cancel">予約のキャンセル</button> -->
     </form>
+
+    <button v-on:click="cancel">予約のキャンセル</button>
 </template>
 
 
@@ -13,7 +16,7 @@
 <script>
 const axios = require('axios').create()
 export default {
-  name: 'about',
+  name: 'TimeInput',
   data() {
       return{
           timeData: {
@@ -22,11 +25,22 @@ export default {
       }
   },
   methods: {
-    async submit() {
+    async reserve() {
       console.log(this.timeData);
       await axios.post('/api/reserve', this.timeData)
       .then(response => {
-          this.results = response.data.results;
+          this.results = response.data;
+          //   this.seen = true;
+          console.log(this.results)
+        })
+      .catch(error => {
+          console.log(error);
+      })
+    },
+    async cancel() {
+      await axios.get('/api/cancel')
+      .then(response => {
+          this.results = response.data;
           //   this.seen = true;
           console.log(this.results)
         })
