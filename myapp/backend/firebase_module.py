@@ -6,7 +6,7 @@ import json
 from pprint import pprint
 import re
 import datetime
-
+import pyrebase
 
 class firebase():
     def __init__(self, client_attr: str):
@@ -24,6 +24,13 @@ class firebase():
                 credentials=credentials,
                 project=credentials.project_id,
             )
+
+        # firebaseの設定ファイルを読み込む
+        with open("FireBaseConfig.json") as f:
+            firebaseConfig = json.loads(f.read())
+
+        firebase = pyrebase.initialize_app(firebaseConfig)
+        self.auth = firebase.auth()
 
         
         # self.client_storage = storage.Client(
@@ -140,6 +147,18 @@ class firebase():
                 u'resv_flag': False
             })
             return 201
+        except Exception as e:
+            print(e)
+            return 400
+    
+    def signin(self, mail, password):
+        try:
+            user = self.auth.sign_in_with_email_and_password(mail, password)
+            query = self.client_store.collection('users').where('email', '==', user['email'])
+            docs = query.get()
+            doc_id = docs[0].to_dict()['doc_id']
+
+            return 201, doc_id
         except Exception as e:
             print(e)
             return 400

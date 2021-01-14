@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from flask_restful import Api, Resource, reqparse
 import firebase_module
 
@@ -39,11 +39,13 @@ class Signin(Resource):
         data = parser.parse_args()
         mail_address = data["mail"]
         password = data["password"]
-        # fb = firebase_module.firebase("store")
-        # status_code = fb.cancel()
+        # print(mail_address, password)
+        fb = firebase_module.firebase("store")
+        status_code, doc_id = fb.signin(mail_address, password)
         # return status_code
-        print(mail_address, password)
-        status_code = 200
+        session['usr'] = doc_id
+        print(session)
+        
         return status_code
 
 api = Api(api_bp)
