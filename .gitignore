@@ -6,7 +6,4 @@ src/bot/line/heroku/
 src/heroku_pushed/__pycache__/*
 src/scraping/__pycache__/*
 myapp/backend/__pycache__/*
-myapp/backend/token/static/.DS_Store
-myapp/backend/token/static/firebase-messaging-sw.js
-myapp/backend/token/static/main.js
-myapp/backend/token/static/manifest.json
+myapp/backend/token/*
