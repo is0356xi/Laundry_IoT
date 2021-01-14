@@ -5,8 +5,8 @@
     </v-card-title>
     <v-card-text>
       <v-form @submit.prevent="signin">
-        <v-text-field prepend-icon="mdi-account-circle" label="メールアドレス" :value="userData.mail"/>
-        <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" @click:append="showPassword = !showPassword" :value="userData.password"/>
+        <v-text-field prepend-icon="mdi-account-circle" label="メールアドレス" v-model="userData.mail"/>
+        <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" @click:append="showPassword = !showPassword" v-model="userData.password"/>
         <v-card-actions>
           <v-btn type="submit">ログイン</v-btn>
         </v-card-actions>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-// const axios = require('axios').create()
+const axios = require('axios').create()
 export default {
   name: 'Signin',
   data () {
@@ -31,8 +31,7 @@ export default {
   methods: {
     async signin() {
       console.log(this.userData.mail);
-      console.log(this.userData.password);
-      /*await axios.post('/api/reserve', this.timeData)
+      await axios.post('/api/signin', this.userData)
       .then(response => {
           this.results = response.data;
           //   this.seen = true;
@@ -40,7 +39,7 @@ export default {
         })
       .catch(error => {
           console.log(error);
-      })*/
+      })
     }
   }
 };

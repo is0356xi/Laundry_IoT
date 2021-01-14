@@ -4,7 +4,9 @@ import firebase_module
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 parser = reqparse.RequestParser()
-parser.add_argument('time', 'mail', 'password')
+parser.add_argument('time')
+parser.add_argument('mail')
+parser.add_argument('password')
 
 class Spam(Resource):
     def get(self):
