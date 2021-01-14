@@ -133,6 +133,18 @@ class firebase():
             return 400
 
 
+    def cancel(self):
+        try:
+            doc_ref = self.client_store.collection(u'reserve').document(u'user1')
+            doc_ref.set({
+                u'resv_flag': False
+            })
+            return 201
+        except Exception as e:
+            print(e)
+            return 400
+
+
 
 
 def main():

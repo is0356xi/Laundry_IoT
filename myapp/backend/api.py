@@ -25,7 +25,15 @@ class Reserve(Resource):
         # return status_code
         return data, status_code
 
+class Cancel(Resource):
+    def get(self):
+        fb = firebase_module.firebase("store")
+        status_code = fb.cancel()
+        # return status_code
+        return status_code
+
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
 api.add_resource(Reserve, '/reserve')
+api.add_resource(Cancel, '/cancel')
