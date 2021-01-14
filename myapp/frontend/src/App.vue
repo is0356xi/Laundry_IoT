@@ -6,6 +6,9 @@
       <el-menu-item>
         <a href="https://element.eleme.io" target="_blank">Link</a>
       </el-menu-item>
+      <el-menu-item>
+        <a href="http://0.0.0.0:5000/token" target="_blank">Token</a>
+      </el-menu-item>
     </el-menu>
     <router-view />
   </div>

@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html lang='ja'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+        <title>Test</title>
+        <link rel="manifest" href="./static/manifest.json">
+    </head>
+    <body>
+        <h1>Test</h1>
+        <p>
+            <input type="button" id="btnSubscribe" value="通知を許可する">
+            <input type="button" id="btnUnSubscribe" value="トークン削除" style="display:none;">
+        </p>
+        <p><input type="text" value="YOUR-INCETANCE-ID-TOKEN" id="textInstanceIdToken" style="width:100%;box-sizing:border-box;"></p>
+        <div id="sendWebPushArea" style="display:none;">
+            <p>下記をコピーしてこのタブを閉じ、別ブラウザで見てください</p>
+            <input type="text" value="" id="sendWebPush" style="width:100%;box-sizing:border-box;">
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-messaging.js"></script>
+
+
+        <!-- Initialize Firebase -->
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyAvimkk_Q5xj9zZiXiasT8OUylQrKYn2R0",
+                authDomain: "laundry-iot.firebaseapp.com",
+                projectId: "laundry-iot",
+                storageBucket: "laundry-iot.appspot.com",
+                messagingSenderId: "434911781563",
+                appId: "1:434911781563:web:902d16e361849fc993ff9e",
+                measurementId: "G-6S5GR5S094"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
+
+        <script type="text/javascript" src="./static/main.js"></script>
+
+    </body>
+</html>

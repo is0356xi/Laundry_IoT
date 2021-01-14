@@ -1,28 +1,16 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
+    <TimeInput/>
 </template>
 
 
 
 <script>
-const axios = require('axios').create()
+import TimeInput from '../components/TimeInput'
 export default {
-  name: 'about',
-  data () {
-    return {
-      tableData: []
-    }
-  },
-  mounted () {
-    this.getWeather()
-  },
-  methods: {
-    getWeather: async function () {
-      const response = await axios.get('/api/weather')
-      this.tableData = response.data
-      console.log(this.tableData)
-    }
+  components:{
+      TimeInput
   }
 }
 </script>
