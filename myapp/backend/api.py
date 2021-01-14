@@ -1,8 +1,10 @@
-from flask import Blueprint
-from flask_restful import Api, Resource
+from flask import Blueprint, request
+from flask_restful import Api, Resource, reqparse
 import firebase_module
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
+parser = reqparse.RequestParser()
+parser.add_argument('time')
 
 class Spam(Resource):
     def get(self):
@@ -14,6 +16,16 @@ class Weather(Resource):
         weathers = fb.get_weather()
         return weathers
 
+class Reserve(Resource):
+    def post(self):
+        data = parser.parse_args()
+        resv_time = data["time"])
+        fb = firebase_module.firebase("store")
+        status_code = fb.reserve(resv_time)
+        # return status_code
+        return data, status_code
+
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
+api.add_resource(Reserve, '/reserve')
