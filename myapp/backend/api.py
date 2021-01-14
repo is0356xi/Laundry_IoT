@@ -19,7 +19,7 @@ class Weather(Resource):
 class Reserve(Resource):
     def post(self):
         data = parser.parse_args()
-        resv_time = data["time"])
+        resv_time = data["time"]
         fb = firebase_module.firebase("store")
         status_code = fb.reserve(resv_time)
         # return status_code

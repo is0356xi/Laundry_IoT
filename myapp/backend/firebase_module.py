@@ -118,6 +118,23 @@ class firebase():
         self.download_blob(bucket_name, filename, "test.jpg")
 
 
+    def reserve(self, time):
+        resv_time = time
+
+        try:
+            doc_ref = self.client_store.collection(u'reserve').document(u'user1')
+            doc_ref.set({
+                u'resv_time': time,
+                u'resv_flag': True
+            })
+            return 201
+        except Exception as e:
+            print(e)
+            return 400
+
+
+
+
 def main():
     # client_attr = "store"
     client_attr = "storage"
