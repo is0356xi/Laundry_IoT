@@ -4,7 +4,7 @@ import firebase_module
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 parser = reqparse.RequestParser()
-parser.add_argument('time')
+parser.add_argument('time', 'mail', 'password')
 
 class Spam(Resource):
     def get(self):
@@ -34,9 +34,14 @@ class Cancel(Resource):
 
 class Signin(Resource):
     def post(self):
-        fb = firebase_module.firebase("store")
+        data = parser.parse_args()
+        mail_address = data["mail"]
+        password = data["password"]
+        # fb = firebase_module.firebase("store")
         # status_code = fb.cancel()
         # return status_code
+        print(mail_address, password)
+        status_code = 200
         return status_code
 
 api = Api(api_bp)
@@ -44,4 +49,4 @@ api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
 api.add_resource(Reserve, '/reserve')
 api.add_resource(Cancel, '/cancel')
-api.add_resource(Singin, '/signin')
+api.add_resource(Signin, '/signin')
