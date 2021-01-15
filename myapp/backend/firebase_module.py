@@ -9,14 +9,12 @@ import datetime
 import pyrebase
 from flask import session
 
-
 class firebase():
     def __init__(self, client_attr: str):
         """
         params
             client_attr: ストレージにアクセスするか・ストアにアクセスするか => "storage" or "store"
         """
-
         key_path = os.path.join(os.path.join(os.environ['HOME'], 'firebase_admin.json'))
         service_account_info = json.load(open(key_path))
         credentials = service_account.Credentials.from_service_account_info(service_account_info)
@@ -44,7 +42,7 @@ class firebase():
         firebase = pyrebase.initialize_app(firebaseConfig)
         self.auth = firebase.auth()
 
-        
+
     def bucket_info(self):
         buckets = self.client_storage.list_buckets()
         for obj in buckets:
@@ -64,11 +62,8 @@ class firebase():
             filename = blob.name
             name_list.append(filename)
 
-        
         target_filename = self._get_latest(name_list)
-
         return target_filename
-            
 
     def _get_latest(self, name_list: list) -> str:
         target_files = []
@@ -96,8 +91,7 @@ class firebase():
 
             # return time
 
-    def get_weather(self):
-
+    def get_weather(self, table=False):
         dt_now = datetime.datetime.now()
 
         doc_name = dt_now.strftime('%Y-%m-%d') # 2021-01-10
@@ -110,10 +104,44 @@ class firebase():
             if k[0:2].isdigit() and on_time <= int(k[0:2]):
                 weather_dic.update({int(k[0:2]):v})
 
-
-        weather = sorted(weather_dic.items(), key=lambda x:x[0])
+        # weather = sorted(weather_dic.items(), key=lambda x:x[0])
         # print(weather)
-        return weather
+        if table:
+            weather_dic =  self.weather_table(weather_dic)
+
+        return weather_dic
+
+
+    def weather_table(self, data):
+        weather_table = []
+        for k, v in data.items():
+            rainfall = int(v['rainfall'])
+            temperature = int(v['temperature'])
+            windSpeed = int(v['windSpeed'])
+
+            if rainfall >= 1.0:
+                laundry_index = 1
+            elif v['weather'] == '晴れ' and windSpeed >= 5.0 and temperature >= 20:
+                laundry_index = 5
+            elif v['weather'] == '晴れ':
+                laundry_index = 4
+            elif v['weather'] == 'くもり' and windSpeed >= 5.0:
+                laundry_index = 3
+            elif v['weather'] == 'くもり':
+                laundry_index = 2
+            else:
+                laundry_index = 3
+
+            weather_table.append({
+                "hour" : str(k),
+                "laundry_index": str(laundry_index),
+                "weather" : v['weather'],
+                "temperature" : temperature,
+                "rainfall": rainfall,
+                "windSpeed" : windSpeed
+            })
+
+        return sorted(weather_table, key=lambda x:x["hour"])
 
 
     def get_img(self):
@@ -151,7 +179,7 @@ class firebase():
         except Exception as err:
             print(err)
             return 401
-            
+
 
 
     def reserve(self, time):
@@ -179,7 +207,7 @@ class firebase():
         except Exception as e:
             print(e)
             return 400
-    
+
     def signin(self, mail, password):
         print(1, mail, password)
         try:
@@ -215,10 +243,6 @@ def main():
     fb.get_img()
     # fb.download_blob()
 
-    
-
-    
 
 if __name__ == "__main__":
     main()
-    

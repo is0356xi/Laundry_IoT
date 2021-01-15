@@ -51,7 +51,7 @@
                     <v-list-item>
                       <figure>
                         <img
-                          :src="'/static/img/weather/' + data.weather + '.png'"
+                          :src="'/static/img/weatherIcon/' + data.weather + '.png'"
                           alt="晴れ"
                           width="60"
                         />
