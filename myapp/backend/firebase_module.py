@@ -304,6 +304,21 @@ class firebase():
             print(e)
             return 400
 
+    def check_resv(self):
+        doc_ref = self.client_store.collection(u'reserve').document(u'user1')
+        doc = doc_ref.get()
+
+        if doc.exists:
+            data = doc.to_dict()
+            if data["resv_flag"]:
+                # resv_time = data["resv_time"]
+                # self._check_time(resv_time)
+                return True
+            else:
+                return False
+        else:
+            print(u'No such document!')
+
 def main():
     # client_attr = "store"
     client_attr = "storage"

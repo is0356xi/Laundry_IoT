@@ -96,6 +96,14 @@ class Token(Resource):
         return status_code
 
 
+class Check(Resource):
+    def get(self):
+        fb = firebase_module.firebase("store")
+        status = fb.check_resv()
+
+        return status
+
+
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
@@ -107,3 +115,4 @@ api.add_resource(Signup, '/signup')
 api.add_resource(Islogin, '/islogin')
 api.add_resource(Logout, '/logout')
 api.add_resource(Token, '/token')
+api.add_resource(Check, '/check')
