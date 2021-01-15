@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div>
     <vue-ctk-date-time-picker 
         label="日時を選択" 
         v-model="timeData.time" 
@@ -14,6 +14,8 @@
     </v-form>
 
     <v-btn v-on:click="cancel">予約のキャンセル</v-btn>
+
+  </div>
 </template>
 
 
