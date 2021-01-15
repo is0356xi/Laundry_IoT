@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-text>
       <v-form @submit.prevent="signin">
-        <v-text-field prepend-icon="mdi-account-circle" label="メールアドレス" v-model="userData.mail"/>
+        <v-text-field prepend-icon="mdi-email" label="メールアドレス" v-model="userData.mail"/>
         <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" @click:append="showPassword = !showPassword" v-model="userData.password"/>
         <v-card-actions>
           <v-btn type="submit">ログイン</v-btn>
@@ -30,12 +30,11 @@ export default {
   },
   methods: {
     async signin() {
-      console.log(this.userData.mail);
       await axios.post('/api/signin', this.userData)
       .then(response => {
           this.results = response.data;
-          //   this.seen = true;
           console.log(this.results)
+          this.$router.push('/')
         })
       .catch(error => {
           console.log(error);

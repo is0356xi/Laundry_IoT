@@ -153,13 +153,15 @@ class firebase():
             return 400
     
     def signin(self, mail, password):
+        print(1, mail, password)
         try:
             user = self.auth.sign_in_with_email_and_password(mail, password)
-            query = self.client_store.collection('users').where('email', '==', user['email'])
+            query = self.client_store.collection('users').where('mail', '==', mail)
             docs = query.get()
             doc_id = docs[0].to_dict()['doc_id']
+            session['usr'] = doc_id
 
-            return 201, doc_id
+            return 201
         except Exception as e:
             print(e)
             return 400
@@ -168,8 +170,8 @@ class firebase():
         try:
             self.auth.create_user_with_email_and_password(mail, password)
             self.client_store.collection('users').document(name).set({'doc_id': name, 'mail': mail})
-            print(1)
-            print(session['usr'])
+            session['usr'] = name
+
             return 201
         except Exception as e:
             print(e)

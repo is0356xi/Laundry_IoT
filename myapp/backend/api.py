@@ -40,13 +40,9 @@ class Signin(Resource):
         data = parser.parse_args()
         mail_address = data["mail"]
         password = data["password"]
-        # print(mail_address, password)
         fb = firebase_module.firebase("store")
-        status_code, doc_id = fb.signin(mail_address, password)
-        # return status_code
-        session['usr'] = doc_id
-        print(session)
-        
+        status_code = fb.signin(mail_address, password)
+
         return status_code
 
 class Signup(Resource):
@@ -55,15 +51,20 @@ class Signup(Resource):
         mail = data["mail"]
         password = data["password"]
         name = data["name"]
-        print(mail, password, name)
-        session['usr'] = name
         fb = firebase_module.firebase("store")
         status_code = fb.signup(mail, password, name)
-        # session['usr'] = name
-        print(session)
 
-        status_code = 200
         return status_code
+
+class Islogin(Resource):
+    def get(self):
+        if session.get('usr'):
+            if session['usr']:
+                return 'ok'
+            else:
+                return 'ng'
+        else:
+            return 'ng'
 
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
@@ -72,3 +73,4 @@ api.add_resource(Reserve, '/reserve')
 api.add_resource(Cancel, '/cancel')
 api.add_resource(Signin, '/signin')
 api.add_resource(Signup, '/signup')
+api.add_resource(Islogin, '/islogin')
