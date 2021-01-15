@@ -1,4 +1,5 @@
 <template>
+
   <section class="reserve-form">
     <h3 class="left-style">
       洗濯機の予約
@@ -12,6 +13,9 @@
           minute-interval="5">
       </vue-ctk-date-time-picker>
 
+
+
+
       <br>
 
       <v-form @submit.prevent="reserve">
@@ -22,12 +26,14 @@
           mdi-checkbox-marked-circle
         </v-icon></v-btn>
         <!-- <button type="cancel">予約のキャンセル</button> -->
+
       </v-form>
       <v-btn v-on:click="cancel" class="ma-2" dark>
         <v-icon dark left>mdi-minus-circle</v-icon>
         キャンセル</v-btn>
     </div>
   </section>
+
 </template>
 
 
