@@ -7,6 +7,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('time')
 parser.add_argument('mail')
 parser.add_argument('password')
+parser.add_argument('name')
 
 class Spam(Resource):
     def get(self):
@@ -48,9 +49,26 @@ class Signin(Resource):
         
         return status_code
 
+class Signup(Resource):
+    def post(self):
+        data = parser.parse_args()
+        mail = data["mail"]
+        password = data["password"]
+        name = data["name"]
+        print(mail, password, name)
+        session['usr'] = name
+        fb = firebase_module.firebase("store")
+        status_code = fb.signup(mail, password, name)
+        # session['usr'] = name
+        print(session)
+
+        status_code = 200
+        return status_code
+
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
 api.add_resource(Reserve, '/reserve')
 api.add_resource(Cancel, '/cancel')
 api.add_resource(Signin, '/signin')
+api.add_resource(Signup, '/signup')

@@ -7,6 +7,7 @@ from pprint import pprint
 import re
 import datetime
 import pyrebase
+from flask import session
 
 class firebase():
     def __init__(self, client_attr: str):
@@ -163,7 +164,16 @@ class firebase():
             print(e)
             return 400
 
-
+    def signup(self, mail, password, name):
+        try:
+            self.auth.create_user_with_email_and_password(mail, password)
+            self.client_store.collection('users').document(name).set({'doc_id': name, 'mail': mail})
+            print(1)
+            print(session['usr'])
+            return 201
+        except Exception as e:
+            print(e)
+            return 400
 
 
 def main():
