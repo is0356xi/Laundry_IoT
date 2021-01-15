@@ -1,19 +1,33 @@
 <template>
-  <div class="about">
-    <vue-ctk-date-time-picker 
-        label="日時を選択" 
-        v-model="timeData.time" 
-        formatted="MM月DD日 HH時mm分" format="YYYY-MM-DD HH:mm"
-        minute-interval="5">
-    </vue-ctk-date-time-picker>
+  <section class="reserve-form">
+    <h3 class="left-style">
+      洗濯機の予約
+    </h3>
+    <br>
+    <div class="about">
+      <vue-ctk-date-time-picker
+          label="日時を選択"
+          v-model="timeData.time"
+          formatted="MM月DD日 HH時mm分" format="YYYY-MM-DD HH:mm"
+          minute-interval="5">
+      </vue-ctk-date-time-picker>
 
-    <v-form @submit.prevent="reserve">
+      <br>
+
+      <v-form @submit.prevent="reserve">
         <!-- <v-input type="text" name="" :value="timeData.time"> -->
-        <v-btn type="submit">予約する</v-btn>
+        <v-btn class="ma-2" red type="submit">
+          予約する
+          <v-icon right>
+          mdi-checkbox-marked-circle
+        </v-icon></v-btn>
         <!-- <button type="cancel">予約のキャンセル</button> -->
-    </v-form>
-
-    <v-btn v-on:click="cancel">予約のキャンセル</v-btn>
+      </v-form>
+      <v-btn v-on:click="cancel" class="ma-2" dark>
+        <v-icon dark left>mdi-minus-circle</v-icon>
+        キャンセル</v-btn>
+    </div>
+  </section>
 </template>
 
 
@@ -62,3 +76,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+h3.left-style {
+    border-left: 10px solid #0061ca;
+    padding: 5px 0 0 10px;
+    border-bottom: 0;
+    text-align: left;
+}
+.reserve-form{
+  margin-right: 0;
+  width: 336px;
+  float: left;
+  margin-right: 20px;
+}
+
+</style>

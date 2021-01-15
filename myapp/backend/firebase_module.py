@@ -144,6 +144,11 @@ class firebase():
         return sorted(weather_table, key=lambda x:x["hour"])
 
 
+    def get_today_weather(self):
+        weather_today = self.get_weather(True)
+        return weather_today[0]
+
+
     def get_img(self):
         bucket_name = "laundry-iot.appspot.com"
 

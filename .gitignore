@@ -12,3 +12,4 @@ myapp/backend/token/static/firebase-messaging-sw.js
 myapp/backend/token/static/.DS_Store
 rpi-src/laundry/__pycache__/firebase_module.cpython-37.pyc
 myapp/backend/.DS_Store
+.DS_Store
