@@ -3,6 +3,7 @@
     <h1>This is an about page</h1>
     <ImgPreview/>
     <TimeInput/>
+  </div>
 </template>
 
 

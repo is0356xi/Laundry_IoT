@@ -73,6 +73,17 @@ class Islogin(Resource):
         else:
             return 'ng'
 
+
+class Logout(Resource):
+    def get(self):
+        try:
+            del session['usr']
+            return 201
+        except:
+            return 400
+
+
+
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
@@ -82,3 +93,4 @@ api.add_resource(Img, '/img')
 api.add_resource(Signin, '/signin')
 api.add_resource(Signup, '/signup')
 api.add_resource(Islogin, '/islogin')
+api.add_resource(Logout, '/logout')
