@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <vue-ctk-date-time-picker label="日時を選択" v-model="timeData.time" formatted="MM月DD日 HH時mm分" format="YYYY-MM-DD HH:mm"></vue-ctk-date-time-picker>
+    <vue-ctk-date-time-picker 
+        label="日時を選択" 
+        v-model="timeData.time" 
+        formatted="MM月DD日 HH時mm分" format="YYYY-MM-DD HH:mm"
+        minute-interval="5">
+    </vue-ctk-date-time-picker>
 
     <form @submit.prevent="reserve">
         <input type="text" name="" :value="timeData.time">
