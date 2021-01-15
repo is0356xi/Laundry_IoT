@@ -1,13 +1,9 @@
 <template>
   <div id="app">
     <el-menu :default-active="activeIndex" mode="horizontal" router @select="handleSelect">
-      <el-menu-item index="home" :route="{ name:'home' }">Home</el-menu-item>
-      <el-menu-item index="about" :route="{ name:'about' }">About</el-menu-item>
+      <el-menu-item index="home" :route="{ name:'home' }" target="_blank">Home</el-menu-item>
       <el-menu-item>
-        <a href="https://element.eleme.io" target="_blank">Link</a>
-      </el-menu-item>
-      <el-menu-item>
-        <a href="http://0.0.0.0:5000/token" target="_blank">Token</a>
+        <a href="http://0.0.0.0:5000/token">Token</a>
       </el-menu-item>
       <el-menu-item index="logout">Logout</el-menu-item>
     </el-menu>

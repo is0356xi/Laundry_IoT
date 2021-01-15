@@ -1,38 +1,56 @@
 <template>
   <div class="home">
-    <h1>This is a home page</h1>
-    <el-table class="data-table" :data="tableData" stripe>
-      <el-table-column prop="id" label="ID" width="180"></el-table-column>
-      <el-table-column prop="name" label="名前" width="180"></el-table-column>
-      <el-table-column prop="note" label="備考"></el-table-column>
-    </el-table>
+    <br>
+    <div class="title">
+      今日の洗濯指数
+    </div>
+    <br>
+    <div class="forecast-days">
+      <WeatherToday/>
+      <TimeInput/>
+    </div>
+    <br>
+    <div class="title">
+      1時間ごとの洗濯指数
+    </div>
+    <br>
+    <WeatherTable/>
+    <br>
+    <div class="title">
+      外干し状況
+    </div>
+    <br>
+    <ImgPreview/>
   </div>
 </template>
 
+
+
 <script>
-const axios = require('axios').create()
+import WeatherTable from '../components/weather/WeatherTable'
+import WeatherToday from '../components/weather/WeatherToday'
+import TimeInput from '../components/TimeInput'
+import ImgPreview from '../components/ImgPreview'
 export default {
-  name: 'home',
-  data () {
-    return {
-      tableData: []
-    }
-  },
-  mounted () {
-    this.updataTableData()
-  },
-  methods: {
-    updataTableData: async function () {
-      const response = await axios.get('/api/spam')
-      this.tableData = response.data
-    }
+  components:{
+    WeatherTable,
+    WeatherToday,
+    TimeInput,
+    ImgPreview
   }
 }
 </script>
 
 <style scoped>
-.data-table {
-  width: 80%;
-  margin: auto;
+.title {
+  text-align: left;
+  font-size: 1.259em;
+  border-bottom: 4px solid #0061ca
 }
+.forecast-days {
+  margin: 20px 0 40px;
+  width:100%;
+  height:180px;
+}
+
 </style>
