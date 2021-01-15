@@ -1,7 +1,8 @@
 <template>
+<v-row justify="center">
   <v-card width="400px" class="mx-auto mt-5">
     <v-card-title>
-      <h1 class="display-1">登録</h1>
+      <h1 class="display-1">新規登録</h1>
     </v-card-title>
     <v-card-text>
       <v-form @submit.prevent="signup">
@@ -14,6 +15,7 @@
       </v-form>
     </v-card-text>
   </v-card>
+</v-row>
 </template>
 
 <script>
