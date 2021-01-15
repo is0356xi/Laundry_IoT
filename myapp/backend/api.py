@@ -29,6 +29,13 @@ class Cancel(Resource):
     def get(self):
         fb = firebase_module.firebase("store")
         status_code = fb.cancel()
+        # return status_code∂
+        return status_code
+
+class Img(Resource):
+    def get(self):
+        fb = firebase_module.firebase("storage")
+        status_code = fb.get_img()
         # return status_code
         return status_code
 
@@ -37,3 +44,4 @@ api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
 api.add_resource(Reserve, '/reserve')
 api.add_resource(Cancel, '/cancel')
+api.add_resource(Img, '/img')

@@ -7,9 +7,16 @@ from pprint import pprint
 import re
 import datetime
 
+from flask import session
+
 
 class firebase():
     def __init__(self, client_attr: str):
+        """
+        params
+            client_attr: ストレージにアクセスするか・ストアにアクセスするか => "storage" or "store"
+        """
+
         key_path = os.path.join(os.path.join(os.environ['HOME'], 'firebase_admin.json'))
         service_account_info = json.load(open(key_path))
         credentials = service_account.Credentials.from_service_account_info(service_account_info)
@@ -25,17 +32,12 @@ class firebase():
                 project=credentials.project_id,
             )
 
-        
-        # self.client_storage = storage.Client(
-        #     credentials=credentials,
-        #     project=credentials.project_id,
-        # )
-    
-        # self.client_store = firestore.Client(
-        #     credentials=credentials,
-        #     project=credentials.project_id,
-        # )
+        try:
+            self.user_id = session["usr"]
+        except:
+            self.user_id = "user1"
 
+        
     def bucket_info(self):
         buckets = self.client_storage.list_buckets()
         for obj in buckets:
@@ -46,25 +48,6 @@ class firebase():
             print('\t-------->')
             pprint(vars(bucket))
 
-    def get_img(self):
-        self.client_storage.read_file("gs://laundry-iot.appspot.com")
-
-    def download_blob(self, bucket_name, source_blob_name, destination_file_name):
-        """Downloads a blob from the bucket."""
-        # bucket_name = "your-bucket-name"
-        # source_blob_name = "storage-object-name"
-        # destination_file_name = "local/path/to/file"
-
-        bucket = self.client_storage.bucket(bucket_name)
-        blob = bucket.blob(source_blob_name)
-        blob.download_to_filename(destination_file_name)
-
-        print(
-            "Blob {} downloaded to {}.".format(
-                source_blob_name, destination_file_name
-            )
-        )
-
 
     def get_filename(self, bucket_name):
         blobs = self.client_storage.list_blobs(bucket_name)
@@ -72,23 +55,39 @@ class firebase():
         name_list = []
         for blob in blobs:
             filename = blob.name
-            self._get_time(filename)
             name_list.append(filename)
 
-        return name_list[0]
+        
+        target_filename = self._get_latest(name_list)
+
+        return target_filename
             
 
-    def _get_time(self, filename):
-        content = filename
-        pattern = '.*\.'
+    def _get_latest(self, name_list: list) -> str:
+        target_files = []
+        for filename in name_list:
+            # ファイル名からuser_idを取得
+            user_id = filename.split("/")[0]
+            # user_idが含まれるファイルだけ取得
+            if self.user_id == user_id:
+                target_files.append(filename)
+                print(filename)
+            else:
+                pass
 
-        # compile後match
-        repatter = re.compile(pattern)
-        result = repatter.match(content)
+        print(target_files)
+        return target_files[0]
 
-        time = result.group()[:-1]
+            # content = filename
+            # pattern = '.*\.'
 
-        return time
+            # # compile後match
+            # repatter = re.compile(pattern)
+            # result = repatter.match(content)
+
+            # time = result.group()[:-1]
+
+            # return time
 
     def get_weather(self):
 
@@ -112,10 +111,40 @@ class firebase():
 
     def get_img(self):
         bucket_name = "laundry-iot.appspot.com"
-        # ファイルの名前取得
-        filename = self.get_filename(bucket_name)
+
+        dst_name = "../frontend/public/static/img/test.jpg"
         # Storageから画像を取得する
-        self.download_blob(bucket_name, filename, "test.jpg")
+        status_code = self.download_blob(bucket_name, dst_name)
+
+        return status_code
+
+    def download_blob(self, bucket_name, destination_file_name):
+        """Downloads a blob from the bucket."""
+        # bucket_name = "your-bucket-name"
+        # source_blob_name = "storage-object-name"
+        # destination_file_name = "local/path/to/file"
+
+        try:
+            # バケットのアクセス
+            bucket = self.client_storage.bucket(bucket_name)
+
+            # ダウンロードするファイル名を取得
+            source_blob_name = self.get_filename(bucket_name)
+
+            # ファイルをダウンロード
+            blob = bucket.blob(source_blob_name)
+            blob.download_to_filename(destination_file_name)
+
+            print(
+                "Blob {} downloaded to {}.".format(
+                    source_blob_name, destination_file_name
+                )
+            )
+            return 201
+        except Exception as err:
+            print(err)
+            return 401
+            
 
 
     def reserve(self, time):
@@ -150,9 +179,11 @@ class firebase():
 def main():
     # client_attr = "store"
     client_attr = "storage"
-    fb = firebase(client_attr)
+    user_id = "user1"
+    fb = firebase(client_attr, user_id)
     # fb.get_weather()
     fb.get_img()
+    # fb.download_blob()
 
     
 
