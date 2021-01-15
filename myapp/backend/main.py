@@ -1,6 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, send_file
 from api import api_bp
 import os
+import requests
+import pprint
+import json
 
 # app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist', static_url_path='/')
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
@@ -12,9 +15,13 @@ app.config['SECRET_KEY'] = os.urandom(24)
 def index(path):
     return render_template('index.html')
 
-@app.route('/token')
-def token():
-    return render_template('token.html')
+@app.route('/token/<path:path>')
+def token(path):
+    return send_file('./token/' + path)
+
+@app.route('/firebase-messaging-sw.js')
+def fb_sw():
+    return send_file('./token/firebase-messaging-sw.js')
 
 @app.route('/notify_test')
 def ntest():

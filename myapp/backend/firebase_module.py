@@ -293,6 +293,16 @@ class firebase():
             print(e)
             return 400
 
+    def updateToken(self, token):
+        try:
+            user_ref = self.client_store.collection('users').document(session['usr'])
+            docs = user_ref.get().to_dict()
+            docs['token'] = token
+            user_ref.set(docs)
+            return 201
+        except Exception as e:
+            print(e)
+            return 400
 
 def main():
     # client_attr = "store"
