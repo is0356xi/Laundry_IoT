@@ -1,5 +1,6 @@
 <template>
-  <v-card width="400px" class="mx-auto mt-5">
+<v-row justify="center">
+  <v-card width="400px" class="mx-auto mt-5" justify="center" >
     <v-card-title>
       <h1 class="display-1">ログイン</h1>
     </v-card-title>
@@ -12,7 +13,13 @@
         </v-card-actions>
       </v-form>
     </v-card-text>
+    <v-card-text>
+       <v-col class="text-right">
+        <v-btn elevation="2" href="/signup">新規登録</v-btn>
+      </v-col>
+    </v-card-text>
   </v-card>
+</v-row>
 </template>
 
 <script>
