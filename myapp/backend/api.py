@@ -9,6 +9,7 @@ parser.add_argument('time')
 parser.add_argument('mail')
 parser.add_argument('password')
 parser.add_argument('name')
+parser.add_argument('token')
 
 class Spam(Resource):
     def get(self):
@@ -85,6 +86,15 @@ class Logout(Resource):
             return 400
 
 
+class Token(Resource):
+    def post(self):
+        data = parser.parse_args()
+        token = data["token"]
+        fb = firebase_module.firebase("store")
+        status_code = fb.updateToken(token)
+
+        return status_code
+
 
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
@@ -96,3 +106,4 @@ api.add_resource(Signin, '/signin')
 api.add_resource(Signup, '/signup')
 api.add_resource(Islogin, '/islogin')
 api.add_resource(Logout, '/logout')
+api.add_resource(Token, '/token')
