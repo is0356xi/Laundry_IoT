@@ -3,6 +3,8 @@ from flask_restful import Api, Resource, reqparse
 import firebase_module
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
+# api_token = Blueprint("token", __name__,static_url_path='/', static_folder='./token')
+
 parser = reqparse.RequestParser()
 parser.add_argument('time')
 parser.add_argument('mail')
