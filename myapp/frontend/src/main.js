@@ -5,6 +5,34 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  const axios = require('axios').create()
+  axios.get('/api/islogin')
+      .then(response => {
+        const flag = response.data;
+        const withoutLogin = ["/signin", "/signup"];  // ログインなしで閲覧できるページ
+        if (withoutLogin.includes(to.path)) {
+          // 認証している場合は、トップページに飛ばす
+          if (flag == 'ok') {
+              next("/");
+          } else {
+            next();
+          }
+        } else {
+          // 認証されていない場合、ログインページに飛ばす
+          if (flag == 'ok') {
+            next();
+          } else {
+            next("/signin");
+          }
+        }
+      })
+      .catch(error => {
+          console.log(error);
+      })
+});
+
+
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import vuetify from './plugins/vuetify';
