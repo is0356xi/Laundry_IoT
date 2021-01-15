@@ -80,7 +80,7 @@ export default {
       },
       random_m(n) {
           var random_num = Math.floor( Math.random() * 6 );
-          var filename = `/static/img/wait${Math.abs(n-random_num)}.png`
+          var filename = `/static/img/wait/wait${Math.abs(n-random_num)}.png`
           return filename
       }
   },
