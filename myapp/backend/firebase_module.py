@@ -65,6 +65,20 @@ class firebase():
         target_filename = self._get_latest(name_list)
         return target_filename
 
+
+    def get_files(self, bucket_name):
+        blobs = self.client_storage.list_blobs(bucket_name)
+
+        name_list = []
+        max_count = 0
+        for blob in blobs:
+            filename = blob.name
+            name_list.append(filename)
+
+        targets = self._get_gallery(name_list)
+
+        return targets
+
     def _get_latest(self, name_list: list) -> str:
         target_files = []
         for filename in name_list:
@@ -80,16 +94,22 @@ class firebase():
         print(target_files)
         return target_files[0]
 
-            # content = filename
-            # pattern = '.*\.'
 
-            # # compile後match
-            # repatter = re.compile(pattern)
-            # result = repatter.match(content)
+    def _get_gallery(self, name_list: list) -> str:
+        target_files = []
+        for filename in name_list:
+            # ファイル名からuser_idを取得
+            user_id = filename.split("/")[0]
+            # user_idが含まれるファイルだけ取得
+            if self.user_id == user_id:
+                target_files.append(filename)
+                print(filename)
+            else:
+                pass
 
-            # time = result.group()[:-1]
+        print(target_files.reverse())
 
-            # return time
+        return target_files[:3]
 
     def get_weather(self, table=False):
         dt_now = datetime.datetime.now()
@@ -153,6 +173,12 @@ class firebase():
 
         return status_code
 
+    def get_images(self):
+        bucket_name = "laundry-iot.appspot.com"
+        status_code = self.download_blobs(bucket_name)
+        return status_code
+
+
     def download_blob(self, bucket_name, destination_file_name):
         """Downloads a blob from the bucket."""
         # bucket_name = "your-bucket-name"
@@ -175,6 +201,35 @@ class firebase():
                     source_blob_name, destination_file_name
                 )
             )
+            return 201
+        except Exception as err:
+            print(err)
+            return 401
+
+    def download_blobs(self, bucket_name):
+        try:
+            # バケットのアクセス
+            bucket = self.client_storage.bucket(bucket_name)
+
+            # ダウンロードするファイル名を取得
+            source_blobs = self.get_files(bucket_name)
+
+            print(source_blobs)
+
+            i = 1
+            dst_name = "../frontend/public/static/img/gallery/test{}.jpg".format(i)
+
+            for source_blob_name in source_blobs:
+                # ファイルをダウンロード
+                blob = bucket.blob(source_blob_name)
+                blob.download_to_filename("../frontend/public/static/img/gallery/test{}.jpg".format(i))
+
+                print(
+                    "Blob {} downloaded to {}.".format(
+                        source_blob_name, "../frontend/public/static/img/gallery/test{}.jpg".format(i)
+                    )
+                )
+                i += 1
             return 201
         except Exception as err:
             print(err)
@@ -237,10 +292,9 @@ class firebase():
 def main():
     # client_attr = "store"
     client_attr = "storage"
-    user_id = "user1"
-    fb = firebase(client_attr, user_id)
+    fb = firebase(client_attr)
     # fb.get_weather()
-    fb.get_img()
+    fb.get_images()
     # fb.download_blob()
 
 
