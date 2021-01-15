@@ -16,7 +16,8 @@ class Spam(Resource):
 class Weather(Resource):
     def get(self):
         fb = firebase_module.firebase("store")
-        weathers = fb.get_weather()
+        table = True
+        weathers = fb.get_weather(table)
         return weathers
 
 class Reserve(Resource):
