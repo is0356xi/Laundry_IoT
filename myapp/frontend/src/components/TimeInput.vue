@@ -7,13 +7,13 @@
         minute-interval="5">
     </vue-ctk-date-time-picker>
 
-    <form @submit.prevent="reserve">
-        <input type="text" name="" :value="timeData.time">
-        <button type="submit">予約する</button>
+    <v-form @submit.prevent="reserve">
+        <!-- <v-input type="text" name="" :value="timeData.time"> -->
+        <v-btn type="submit">予約する</v-btn>
         <!-- <button type="cancel">予約のキャンセル</button> -->
-    </form>
+    </v-form>
 
-    <button v-on:click="cancel">予約のキャンセル</button>
+    <v-btn v-on:click="cancel">予約のキャンセル</v-btn>
 </template>
 
 
