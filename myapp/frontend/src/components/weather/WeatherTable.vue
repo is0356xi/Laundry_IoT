@@ -12,7 +12,6 @@
                     <v-list-item-title class="title">
                       {{ data.hour }}:00
                     </v-list-item-title>
-                    <v-list-item-subtitle>時間ごとの洗濯指数</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
 
@@ -52,7 +51,6 @@
                       <figure>
                         <img
                           :src="'/static/img/weatherIcon/' + data.weather + '.png'"
-                          alt="晴れ"
                           width="60"
                         />
                         <figcaption>{{ data.weather }}</figcaption>
