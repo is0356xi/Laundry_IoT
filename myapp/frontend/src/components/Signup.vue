@@ -6,8 +6,8 @@
     </v-card-title>
     <v-card-text>
       <v-form @submit.prevent="signup">
-        <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" @click:append="showPassword = !showPassword" v-model="userData.password"/>
         <v-text-field prepend-icon="mdi-email" label="メールアドレス" v-model="userData.mail"/>
+        <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" @click:append="showPassword = !showPassword" v-model="userData.password"/>
         <v-text-field prepend-icon="mdi-account-circle" label="ユーザ名" v-model="userData.name"/>
         <v-card-actions>
           <v-btn type="submit">登録</v-btn>
