@@ -48,5 +48,5 @@ def ntest():
     return response.json()
 
 if __name__ == '__main__':
-    app.run()
-    # app.run(debug=False, host='0.0.0.0', port=48080)
+    # app.run()
+    app.run(debug=False, host='0.0.0.0', port=5000, threaded=True)
