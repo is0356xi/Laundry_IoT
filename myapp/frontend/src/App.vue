@@ -2,9 +2,7 @@
   <div id="app">
     <el-menu :default-active="activeIndex" mode="horizontal" router @select="handleSelect">
       <el-menu-item index="home" :route="{ name:'home' }" target="_blank">Home</el-menu-item>
-      <el-menu-item>
-        <a href="/token/token.html">Token</a>
-      </el-menu-item>
+      <el-menu-item index="token">Token</el-menu-item>
       <el-menu-item index="logout">Logout</el-menu-item>
     </el-menu>
     <router-view />
@@ -25,6 +23,8 @@ export default {
       console.log(indexPath);
       if (index == 'logout') {
         this.logout()
+      } else if (index == 'token') {
+        window.open('/token/token.html', 'newtab');
       }
     },
     async logout() {
