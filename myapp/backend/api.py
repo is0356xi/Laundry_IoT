@@ -26,10 +26,12 @@ class Reserve(Resource):
     def post(self):
         data = parser.parse_args()
         resv_time = data["time"]
+        
         fb = firebase_module.firebase("store")
-        status_code = fb.reserve(resv_time)
+        data = fb.reserve(resv_time)
+        print(data)
         # return status_code
-        return data, status_code
+        return data
 
 class Cancel(Resource):
     def get(self):
@@ -41,7 +43,7 @@ class Cancel(Resource):
 class Img(Resource):
     def get(self):
         fb = firebase_module.firebase("storage")
-        status_code = fb.get_img()
+        status_code = fb.get_images()
         # return status_code
         return status_code
 
@@ -109,9 +111,9 @@ class Token(Resource):
 class Check(Resource):
     def get(self):
         fb = firebase_module.firebase("store")
-        status = fb.check_resv()
+        data = fb.check_resv()
 
-        return status
+        return data
 
 
 api = Api(api_bp)
@@ -125,4 +127,4 @@ api.add_resource(Signup, '/signup')
 api.add_resource(Islogin, '/islogin')
 api.add_resource(Logout, '/logout')
 api.add_resource(Token, '/token')
-api.add_resource(Check, '/check')
+api.add_resource(Check, '/check_resv')

@@ -25,12 +25,14 @@
           <v-icon right>
           mdi-checkbox-marked-circle
         </v-icon></v-btn>
-        <!-- <button type="cancel">予約のキャンセル</button> -->
-
       </v-form>
       <v-btn v-on:click="cancel" class="ma-2" dark>
         <v-icon dark left>mdi-minus-circle</v-icon>
         キャンセル</v-btn>
+
+        <p v-if="flag">{{timeData.pref_time}}の予約があるよ</p>
+        <p v-else>予約は無いよ</p>
+
     </div>
   </section>
 
@@ -44,19 +46,28 @@ export default {
   name: 'TimeInput',
   data() {
       return{
-          timeData: {
-              time: ""
-          }
+          timeData:{
+            time : "",
+            pref_time: ""
+            },
+            flag: true
       }
   },
   methods: {
     async reserve() {
-      console.log(this.timeData);
       await axios.post('/api/reserve', this.timeData)
       .then(response => {
           this.results = response.data;
           //   this.seen = true;
-          console.log(this.results)
+        //   console.log(this.results)
+        //   this.timeData.time = this.results.resv_time
+          // 予約に成功したら予約フラグを反転
+
+          if(this.results.resv_flag == true && this.flag == false){
+            this.change_flag(this.results.resv_time)
+          }else{
+              this.timeData.pref_time = this.results.resv_time
+          }
         })
       .catch(error => {
           console.log(error);
@@ -68,11 +79,28 @@ export default {
           this.results = response.data;
           //   this.seen = true;
           console.log(this.results)
+          this.change_flag("")
         })
       .catch(error => {
           console.log(error);
       })
+    },
+    change_flag(time){
+        this.timeData.pref_time = time
+        this.flag = !this.flag
+        return this.flag
     }
+  },
+  created: async function check() {
+          await axios.get('/api/check_resv')
+          .then(response => {
+              this.flag = response.data.resv_flag;
+              this.timeData.pref_time = response.data.resv_time;
+              console.log(response.data)
+          })
+          .catch(error => {
+              console.log(error);
+          })
   },
   props: {
     value: {

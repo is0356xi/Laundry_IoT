@@ -109,7 +109,7 @@ class firebase():
 
         print(target_files.reverse())
 
-        return target_files[:3]
+        return target_files[:6]
 
     def get_weather(self, table=False):
         dt_now = datetime.datetime.now()
@@ -222,16 +222,16 @@ class firebase():
             print(source_blobs)
 
             i = 1
-            dst_name = "../frontend/public/static/img/gallery/test{}.jpg".format(i)
+            dst_name = "../frontend/src/assets/gallery/test{}.jpg".format(i)
 
             for source_blob_name in source_blobs:
                 # ファイルをダウンロード
                 blob = bucket.blob(source_blob_name)
-                blob.download_to_filename("../frontend/public/static/img/gallery/test{}.jpg".format(i))
+                blob.download_to_filename("../frontend/src/assets/gallery/test{}.jpg".format(i))
 
                 print(
                     "Blob {} downloaded to {}.".format(
-                        source_blob_name, "../frontend/public/static/img/gallery/test{}.jpg".format(i)
+                        source_blob_name, "../frontend/src/assets/gallery/test{}.jpg".format(i)
                     )
                 )
                 i += 1
@@ -244,14 +244,15 @@ class firebase():
 
     def reserve(self, time):
         resv_time = time
-
         try:
             doc_ref = self.client_store.collection(u'reserve').document(u'user1')
             doc_ref.set({
                 u'resv_time': time,
                 u'resv_flag': True
             })
-            return 201
+
+            data = {"resv_time": time, "resv_flag": True}
+            return data
         except Exception as e:
             print(e)
             return 400
@@ -309,10 +310,9 @@ class firebase():
 
         if doc.exists:
             data = doc.to_dict()
+            print(data)
             if data["resv_flag"]:
-                # resv_time = data["resv_time"]
-                # self._check_time(resv_time)
-                return True
+                return data
             else:
                 return False
         else:
