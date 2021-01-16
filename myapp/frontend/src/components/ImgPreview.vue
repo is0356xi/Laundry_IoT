@@ -28,8 +28,8 @@
         <template v-slot:placeholder>
           <v-row
             class="fill-height ma-0"
-            align="center"
-            justify="center"
+            align="start"
+            justify="start"
           >
             <v-progress-circular
               indeterminate
@@ -40,7 +40,7 @@
       </v-img>
     </v-col>
   </v-row>
-  <v-btn v-on:click="ImgUpdate">更新</v-btn>
+  <v-btn color="primary" v-on:click="ImgUpdate">更新<v-icon right>update</v-icon></v-btn>
   </div>
 </template>
 
@@ -100,6 +100,7 @@ export default {
 <style scoped>
 .gallery{
   width: 800px;
-  margin: auto;
+  text-align: center;
 }
+
 </style>

@@ -52,5 +52,7 @@ export default {
   width:100%;
   height:180px;
 }
-
+.home{
+  padding : 20px ;
+}
 </style>

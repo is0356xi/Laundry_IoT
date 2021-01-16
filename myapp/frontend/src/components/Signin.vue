@@ -1,4 +1,5 @@
 <template>
+<div class="singIn">
 <v-row justify="center">
   <v-card width="400px" class="mx-auto mt-5" justify="center" >
     <v-card-title>
@@ -20,6 +21,7 @@
     </v-card-text>
   </v-card>
 </v-row>
+</div>
 </template>
 
 <script>
@@ -53,3 +55,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+</style>

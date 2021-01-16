@@ -20,13 +20,13 @@
 
       <v-form @submit.prevent="reserve">
         <!-- <v-input type="text" name="" :value="timeData.time"> -->
-        <v-btn class="ma-2" red type="submit">
+        <v-btn color="red" class="ma-2" type="submit">
           予約する
           <v-icon right>
           mdi-checkbox-marked-circle
         </v-icon></v-btn>
       </v-form>
-      <v-btn v-on:click="cancel" class="ma-2" dark>
+      <v-btn class="ma-2" dark v-on:click="cancel">
         <v-icon dark left>mdi-minus-circle</v-icon>
         キャンセル</v-btn>
 
