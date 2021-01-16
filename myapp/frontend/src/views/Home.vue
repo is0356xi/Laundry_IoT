@@ -21,8 +21,6 @@
     </div>
     <br>
     <ImgPreview/>
-
-    <!-- <ResvView/> -->
   </div>
 </template>
 
@@ -33,14 +31,12 @@ import WeatherTable from '../components/weather/WeatherTable'
 import WeatherToday from '../components/weather/WeatherToday'
 import TimeInput from '../components/TimeInput'
 import ImgPreview from '../components/ImgPreview'
-// import ResvView from '../components/ResvView'
 export default {
   components:{
     WeatherTable,
     WeatherToday,
     TimeInput,
     ImgPreview,
-    // ResvView
   }
 }
 </script>

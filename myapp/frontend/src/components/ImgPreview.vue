@@ -12,14 +12,14 @@
     <div class="gallery">
     <v-row>
     <v-col
-      v-for="n in 9"
+      v-for="n in 6"
       :key="n"
       class="d-flex child-flex"
       cols="4"
     >
       <v-img
-        :src="`/static/img/gallery/test${n}.jpg`"
         :lazy-src="random_m(n)"
+        :src="imgSrc(n)"
         aspect-ratio="1"
         max-height="200"
         max-width="250"
@@ -82,6 +82,9 @@ export default {
           var random_num = Math.floor( Math.random() * 6 );
           var filename = `/static/img/wait/wait${Math.abs(n-random_num)}.png`
           return filename
+      },
+      imgSrc(n){
+          return require(`@/assets/gallery/test${n}.jpg`)
       }
   },
   computed:{
