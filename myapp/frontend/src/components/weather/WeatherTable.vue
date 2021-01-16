@@ -35,14 +35,14 @@
                     <v-list-item>
                       <v-list-item-icon>
                         <v-icon small>mdi-send</v-icon>
-                        <v-list-item-subtitle class="pl-1">{{ data.windSpeed }} m/s</v-list-item-subtitle>
+                        <v-list-item-subtitle class="pl-2">{{ data.windSpeed }} m/s</v-list-item-subtitle>
                       </v-list-item-icon>
                     </v-list-item>
 
                     <v-list-item>
                       <v-list-item-icon>
                         <v-icon small>mdi-cloud-download</v-icon>
-                        <v-list-item-subtitle class="pl-1">{{ data.rainfall }} mm/h</v-list-item-subtitle>
+                        <v-list-item-subtitle class="pl-2">{{ data.rainfall }} mm/h</v-list-item-subtitle>
                       </v-list-item-icon>
                     </v-list-item>
                   </div>

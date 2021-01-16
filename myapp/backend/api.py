@@ -116,6 +116,13 @@ class Check(Resource):
         return data
 
 
+class WeatherToday(Resource):
+    def get(self):
+        fb = firebase_module.firebase("store")
+        weathers = fb.get_today_weather()
+        return weathers
+
+
 api = Api(api_bp)
 api.add_resource(Spam, '/spam')
 api.add_resource(Weather, '/weather')
@@ -128,3 +135,4 @@ api.add_resource(Islogin, '/islogin')
 api.add_resource(Logout, '/logout')
 api.add_resource(Token, '/token')
 api.add_resource(Check, '/check_resv')
+api.add_resource(WeatherToday, '/weather_today')
