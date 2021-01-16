@@ -20,6 +20,11 @@ function postToken(token) {
     xhr.onload = function () {
         let result = JSON.parse(xhr.responseText);
         console.log(result);
+        if(result == "401") {
+            alert("トークン登録エラー：ログイン状態を確認してください")
+        } else if (result == "400") {
+            alert("トークン登録エラー：サーバ側でエラーが発生しました")
+        }
     };
 
     // XMLHttpRequestを送信

@@ -96,6 +96,8 @@ class Logout(Resource):
 
 class Token(Resource):
     def post(self):
+        if(not session.get('usr')):
+            return 401
         data = parser.parse_args()
         token = data["token"]
         fb = firebase_module.firebase("store")

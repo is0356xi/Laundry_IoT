@@ -24,7 +24,18 @@ export default {
       if (index == 'logout') {
         this.logout()
       } else if (index == 'token') {
-        window.open('/token/token.html', 'newtab');
+        const axios = require('axios').create()
+        axios.get('/api/islogin')
+            .then(response => {
+              const flag = response.data;
+              if(flag == "ok") {
+                window.open('/token/token.html', 'newtab');
+                this.$router.push('/');
+              }
+            })
+            .catch(error => {
+                console.log(error);
+            })
       }
     },
     async logout() {
