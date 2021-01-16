@@ -5,7 +5,7 @@ self.addEventListener("notificationclick", function(event) {
     const clickAction = notificationData.click_action;
     event.notification.close();
     event.waitUntil(
-        clients.openWindow(clickAction)
+        clients.openWindow('http://localhost:5000/')
     );
 });
 
