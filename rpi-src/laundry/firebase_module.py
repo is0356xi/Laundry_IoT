@@ -192,6 +192,7 @@ class firebase():
                     print("現在時刻より前")
                 else:
                     print("予約時間が変更されました")
+                    self._cancel_time()
                     self._set_time(resv_time)
                     print("{0} --> {1}".format(pref_time, resv_time))
         else:
