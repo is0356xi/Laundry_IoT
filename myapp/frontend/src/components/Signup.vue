@@ -37,7 +37,7 @@ export default {
       await axios.post('/api/signup', this.userData)
       .then(response => {
           const results = response.data;
-          if (results.status_code == '201') {
+          if (results.status_code == '201' && results.message == 'Success') {
             this.$router.push('/')
           } else {
             this.$toasted.error(`登録に失敗しました。(${results.message})`);

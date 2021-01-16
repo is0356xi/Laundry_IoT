@@ -318,6 +318,17 @@ class firebase():
         else:
             print(u'No such document!')
 
+    def checkUserName(self, name):
+        try:
+            user_ref = self.client_store.collection('users').document(name)
+            docs = user_ref.get().to_dict()
+            if docs is None:
+                return 'not used', 201
+            else:
+                return 'used', 201
+        except:
+            return 'Error', 400
+
 def main():
     # client_attr = "store"
     client_attr = "storage"

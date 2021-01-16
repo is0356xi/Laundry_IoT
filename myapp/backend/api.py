@@ -62,9 +62,17 @@ class Signup(Resource):
         password = data["password"]
         name = data["name"]
         fb = firebase_module.firebase("store")
-        message, status_code = fb.signup(mail, password, name)
 
-        return {'message': message, 'status_code': status_code}
+        result, status_code = fb.checkUserName(name)
+
+        if status_code == 201:
+            if result == 'used':
+                return {'message': 'The username is already in use', 'status_code': status_code}
+            elif result == 'not used':
+                message, status_code = fb.signup(mail, password, name)
+                return {'message': message, 'status_code': status_code}
+        else:
+            return {'message': result, 'status_code': status_code}
 
 class Islogin(Resource):
     def get(self):
