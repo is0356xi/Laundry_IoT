@@ -12,7 +12,7 @@ do
 	if [ -n "$(ls)" ]; then
 		file=`ls`
 		echo $file
-		gsutil -o 'Credentials:gs_service_key_file=/home/pi/firebase_admin.json' cp "${TARGET_DIR}/${file}" gs://laundry-iot.appspot.com/
+		gsutil -o 'Credentials:gs_service_key_file=/home/pi/firebase_admin.json' cp "${TARGET_DIR}/${file}" gs://laundry-iot.appspot.com/user1/
 
 		rm -rf $file
 	else

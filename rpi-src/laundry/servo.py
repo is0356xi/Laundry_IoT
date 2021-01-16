@@ -1,7 +1,10 @@
 import time
 import pigpio
+import firebase_module
 
 def StartLaundry():
+    #fb = firebase_module.firebase("store")
+    #fb.cancel()
     servoPush()
     time.sleep(SERVO_TIME)
     servoRelease()
@@ -23,8 +26,8 @@ def servoPush():
 
 if __name__=='__main__':
     # サーボのPWMパラメータ
-    SERVO_RELEASE = 0.5 # ボタン解放状態（サーボモータ角度中間）
-    SERVO_PUSH = 0.20   # ボタン押下状態
+    SERVO_RELEASE = 0.6 # ボタン解放状態（サーボモータ角度中間）
+    SERVO_PUSH = 0.40   # ボタン押下状態
     SERVO_TIME = 1    # サーボモータを押す時間[秒]
     
     pi = pigpio.pi()
