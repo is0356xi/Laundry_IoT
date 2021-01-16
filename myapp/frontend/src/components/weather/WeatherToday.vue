@@ -1,35 +1,58 @@
 <template>
   <section class="today-weather">
     <h3 class="left-style">
-      今日&nbsp;01月15日
-      <span>（金）</span>
+      {{tableData.today}}
     </h3>
     <div class="indexes-weather-wrap clearfix">
       <div class="clearfix">
         <div class="indexes-icon-box">
-          <img :src="'/static/img/laundry/02.png'"
+          <img :src="'/static/img/laundry/0'+ tableData.laundry_index + '.png'"
           width="60"
           height="60"
           />
-          <span class="indexes-telop-0">やや乾く</span>
+          <span class="indexes-telop-0">{{tableData.laundry_telop}}</span>
         </div>
         <div class="weather-icon-box">
           <img
-            :src="'/static/img/weatherIcon/晴れ.png'"
+            :src="'/static/img/weatherIcon/' + tableData.weather + '.png'"
             width="47"
             heigt="30"
             />
-          <span class="weather_">晴れ</span>
+          <span class="weather_">{{tableData.weather}}</span>
           <p class="indexes-weather-date-value">
-            <span>12℃</span>
-            <span class="precip">0 mm/h</span>
+            <span>{{tableData.temperature}}℃</span>
+            <span class="precip">{{tableData.rainfall}} mm/h</span>
           </p>
         </div>
       </div>
-      <p class="indexes-telop-1">外干し最適時間：12:00〜16:00</p>
+      <p class="indexes-telop-1">⭐︎⭐️おすすめ干し時間：〜{{tableData.laundry_optimaly}}:00〜⭐️⭐️</p>
     </div>
   </section>
 </template>
+
+<script>
+const axios = require('axios').create()
+export default {
+  name: 'weather_today',
+  data () {
+    return {
+      tableData: []
+    }
+  },
+  mounted () {
+    this.getWeatherToday()
+  },
+  methods: {
+    getWeatherToday: async function () {
+      const response = await axios.get('/api/weather_today')
+      this.tableData = response.data
+      console.log(this.tableData)
+    }
+  },
+  computed: {
+  }
+}
+</script>
 
 <style scoped>
 .weather_{

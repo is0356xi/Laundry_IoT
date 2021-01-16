@@ -13,9 +13,6 @@
           minute-interval="5">
       </vue-ctk-date-time-picker>
 
-
-
-
       <br>
 
       <v-form @submit.prevent="reserve">

@@ -8,6 +8,7 @@ import re
 import datetime
 import pyrebase
 from flask import session
+import collections
 
 class firebase():
     def __init__(self, client_attr: str):
@@ -135,7 +136,7 @@ class firebase():
     def weather_table(self, data):
         weather_table = []
         for k, v in data.items():
-            rainfall = int(v['rainfall'])
+            rainfall = float(v['rainfall'])
             temperature = int(v['temperature'])
             windSpeed = int(v['windSpeed'])
 
@@ -165,8 +166,48 @@ class firebase():
 
 
     def get_today_weather(self):
-        weather_today = self.get_weather(True)
-        return weather_today[0]
+        tem = self.get_weather(True)
+        dt_now = datetime.datetime.now()
+        laundry_index = 0
+        temperature = 0
+        rainfall = 0
+        weather = []
+        laundry_max = 0
+        laundry_optimaly = tem[0]["hour"]
+        for d in tem:
+            laundry_index += int(d["laundry_index"])
+            if laundry_max < int(d["laundry_index"]):
+                laundry_max = int(d["laundry_index"])
+                laundry_optimaly = d["hour"]
+            temperature+=d["temperature"]
+            rainfall+=d["rainfall"]
+            weather.append(d["weather"])
+
+        cnt = collections.Counter(weather)
+        today_weather = cnt.most_common()[0][0]
+
+        laundry_index = laundry_index//len(tem)
+        if laundry_index == 1:
+            laundry_telop = '部屋干し推奨'
+        elif laundry_index == 2:
+            laundry_telop = 'やや乾く'
+        elif laundry_index == 4:
+            laundry_telop = 'よく乾く'
+        elif laundry_index == 5:
+            laundry_telop = '大変よく乾く'
+        else:
+            laundry_telop = '乾く'
+
+        weather_today = {
+            "today": "今日 "+dt_now.strftime('%m月%d日'),
+            "laundry_index": str(laundry_index),
+            "laundry_telop": laundry_telop,
+            "laundry_optimaly": laundry_optimaly,
+            "temperature": temperature//len(tem),
+            "rainfall": rainfall//len(tem),
+            "weather": today_weather
+        }
+        return weather_today
 
 
     def get_img(self):
@@ -330,11 +371,12 @@ class firebase():
             return 'Error', 400
 
 def main():
-    # client_attr = "store"
-    client_attr = "storage"
+    client_attr = "store"
+    # client_attr = "storage"
     fb = firebase(client_attr)
     # fb.get_weather()
-    fb.get_images()
+    # fb.get_images()
+    print(fb.get_today_weather())
     # fb.download_blob()
 
 
