@@ -17,6 +17,7 @@
     "vue-ctk-date-time-picker": "~2.5.0",
     "vue-datetime": "~1.0.0-beta.14",
     "vue-router": "~3.4.9",
+    "vue-toasted": "^1.1.28",
     "vuetify": "~2.4.2",
     "weekstart": "~1.0.1"
   },

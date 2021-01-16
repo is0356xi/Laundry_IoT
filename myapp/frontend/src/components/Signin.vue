@@ -14,7 +14,7 @@
       </v-form>
     </v-card-text>
     <v-card-text>
-       <v-col class="text-right">
+      <v-col class="text-right">
         <v-btn elevation="2" href="/signup">新規登録</v-btn>
       </v-col>
     </v-card-text>
@@ -39,9 +39,12 @@ export default {
     async signin() {
       await axios.post('/api/signin', this.userData)
       .then(response => {
-          this.results = response.data;
-          console.log(this.results)
-          this.$router.push('/')
+          const results = response.data;
+          if (results.status_code == '201') {
+            this.$router.push('/')
+          } else {
+            this.$toasted.error(`ログインに失敗しました。(${results.message})`);
+          }
         })
       .catch(error => {
           console.log(error);
