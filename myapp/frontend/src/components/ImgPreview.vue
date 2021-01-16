@@ -40,7 +40,7 @@
       </v-img>
     </v-col>
   </v-row>
-  <v-btn color="primary" v-on:click="ImgUpdate">更新<v-icon right>update</v-icon></v-btn>
+  <v-btn dark color="primary" v-on:click="ImgUpdate">更新<v-icon dark right>mdi-checkbox-marked-circle</v-icon></v-btn>
   </div>
 </template>
 
