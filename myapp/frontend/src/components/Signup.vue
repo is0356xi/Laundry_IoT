@@ -34,12 +34,14 @@ export default {
   },
   methods: {
     async signup() {
-      console.log(this.userData);
       await axios.post('/api/signup', this.userData)
       .then(response => {
-          this.results = response.data;
-          console.log(this.results)
-          this.$router.push('/')
+          const results = response.data;
+          if (results.status_code == '201') {
+            this.$router.push('/')
+          } else {
+            this.$toasted.error(`登録に失敗しました。(${results.message})`);
+          }
         })
       .catch(error => {
           console.log(error);

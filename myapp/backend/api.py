@@ -51,9 +51,9 @@ class Signin(Resource):
         mail_address = data["mail"]
         password = data["password"]
         fb = firebase_module.firebase("store")
-        status_code = fb.signin(mail_address, password)
+        message, status_code = fb.signin(mail_address, password)
 
-        return status_code
+        return {'message': message, 'status_code': status_code}
 
 class Signup(Resource):
     def post(self):
@@ -62,9 +62,9 @@ class Signup(Resource):
         password = data["password"]
         name = data["name"]
         fb = firebase_module.firebase("store")
-        status_code = fb.signup(mail, password, name)
+        message, status_code = fb.signup(mail, password, name)
 
-        return status_code
+        return {'message': message, 'status_code': status_code}
 
 class Islogin(Resource):
     def get(self):

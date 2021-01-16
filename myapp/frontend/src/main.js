@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import './plugins/element.js'
 import router from './router'
+import Toasted from 'vue-toasted';
 
 Vue.config.productionTip = false
 
@@ -42,6 +43,11 @@ Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker);
 
 // import { Datetime } from 'vue-datetime';
 // Vue.component('datetime', Datetime);
+
+Vue.use(Toasted, {
+  duration: 3000,
+  singleton: true
+});
 
 new Vue({
   router,
